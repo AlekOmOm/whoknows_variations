@@ -1,36 +1,30 @@
 # Whoknows Variations
 
 
-## Get started
+Use the `ours` merge strategy to merge the `main` branch into the `new_branch` branch. only update the `main` branch.
 
 cd into the src folder where `docker-compose.yml` is located and run the following command:
 
 ```bash
-$ docker-compose up --build
+git checkout new_branch
+git merge -s ours main
 ```
 
-## URLs
+## How to get started
 
-Who knows app: http://localhost:8080/
+Each branch is a tutorial in a different topic based on the same Flask application as in the `main` branch. 
 
-Who knows metrics endpoint: http://localhost:8080/metrics
+One way to follow along is by:
 
-The Prometheus web client: http://localhost:9090/
+1. Forking the repository to your own account.
 
-The Grafana dashboard: http://localhost:3000/ (**login** with `admin`/`admin`.)
+2. Cloning the repository to your local machine.
 
-If you are following the tutorial with intent to implement it for your group, remember to change the login credentials to what is posted in Teams. 
+3. Checking out the branch you are interested in (e.g. `git checkout <branch_name>`).
 
-## Steps
+4. Following the instructions in the README of the branch.
 
-1. [The Flask Prometheus setup and docker-compose.yml](./tutorial/1._Flask_Prometheus_Setup.md)
-
-2. [The Grafana setup](./tutorial/2._Grafana_Setup.md)
-
-
-## Beware: Server size limitation
-
-Besides the reasons why you shouldn't run the monitoring setup on teh same server as that which you are monitoring, running Prometheus and Grafana on the same server as the app will probably be difficult to achieve with the server sizes we use. 
+5. You can now push changes to your own repository. 
 
 ## Further work
 
