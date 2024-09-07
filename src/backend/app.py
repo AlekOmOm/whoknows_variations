@@ -150,13 +150,6 @@ def register():
     return render_template('register.html')
 
 
-@app.route('/api/logout')
-def logout():
-    """Logs the user out."""
-    flash('You were logged out')
-    session.pop('user_id', None)
-    return redirect(url_for('search'))
-
 
 ################################################################################
 # API Routes
@@ -215,6 +208,12 @@ def api_register():
         return redirect(url_for('login'))
     return render_template('register.html', error=error)
 
+@app.route('/api/logout')
+def logout():
+    """Logs the user out."""
+    flash('You were logged out')
+    session.pop('user_id', None)
+    return redirect(url_for('search'))
 
 ################################################################################
 # Security Functions
