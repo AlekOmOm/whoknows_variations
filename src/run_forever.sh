@@ -1,14 +1,13 @@
 #!/bin/bash
 
-PYTHON_SCRIPT_PATH=$1
+PYTHON_SCRIPT_PATH="${1}"
 
-TMP="This variable might become useful at some point. Otherwise delete it." 
+# unused variable: TMP="This variable might become useful at some point. Otherwise delete it." 
 
-while true
-do
-    python2 $PYTHON_SCRIPT_PATH
-    if [ $? -ne 0 ]; then
-        echo "Script crashed with exit code $?. Restarting..." >&2
+while true; do
+    if ! python3 "{$PYTHON_SCRIPT_PATH}"; then 
+        exit_status=$?
+        echo "Script crashed with exit code ${exit_status}. Restarting..." &2
         sleep 1
     fi
 done
