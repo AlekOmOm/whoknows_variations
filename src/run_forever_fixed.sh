@@ -1,8 +1,6 @@
 #!/bin/bash
 
-PYTHON_SCRIPT_PATH="${1}"
-
-# unused variable: TMP="This variable might become useful at some point. Otherwise delete it." 
+PYTHON_SCRIPT_PATH=${1}
 
 while true; do
     if ! python3 "${PYTHON_SCRIPT_PATH}"; then 
