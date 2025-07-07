@@ -1,16 +1,29 @@
 # Alertmanager & PagerDuty Integration Report
 
 ## 1. Overview
-This document captures the end-to-end setup that enables **whoknows** to trigger PagerDuty incidents whenever critical conditions are detected. The stack runs fully containerised via `docker-compose` and consists of:
+end-to-end setup 
+- enables **app (whoknows)** to trigger **PagerDuty** incidents 
+    - conditions: 
+        - HTTP500 errors are detected.  (for testing of Business value metric)
+    - latency: within ~14s from alert to incident
 
-| Component        | Role |
+
+| Containers        | Role |
 |------------------|------|
 | **whoknows_flask** | Produces application metrics and exposes `/metrics` for scraping |
 | **Prometheus**   | Scrapes metrics, evaluates alert rules |
 | **Alertmanager-1** | Receives alerts from Prometheus and dispatches notifications to PagerDuty |
 | **Grafana**      | Visualises real-time metrics and alert history |
 
-A second Alertmanager replica (`alertmanager-2`) is available for HA but is outside the PagerDuty scope of this validation.
+
+## toc:
+- [Overview](#overview)
+- [Prometheus ➜ Alertmanager wiring](#prometheus-alertmanager-wiring)
+- [Alertmanager ➜ PagerDuty integration](#alertmanager-pagerduty-integration)
+- [Business-value metric: `whoknows_http_responses_total`](#business-value-metric-whoknows_http_responses_total)
+- [End-to-end validation](#end-to-end-validation)
+- [Troubleshooting tips](#troubleshooting-tips)
+- [Next steps](#next-steps)
 
 ---
 
