@@ -33,8 +33,10 @@ app.secret_key = SECRET_KEY
 CPU_GAUGE = Gauge(
     "whoknows_cpu_load_percent", "Current load of the CPU in percent."
 )
-REPONSE_COUNTER = Counter(
-    "whoknows_http_responses_total", "The count of HTTP responses sent."
+
+# including the status code, so that alert on 500 errors can be set up
+RESPONSE_COUNTER = Counter(
+    "whoknows_http_responses_total", "Count of HTTP responses labeled by status code.", ["code"] # <---- Business value check
 )
 REQUEST_DURATION_SUMMARY = Histogram(
     "whoknows_request_duration_milliseconds", "Request duration distribution."
@@ -105,7 +107,7 @@ def after_request(response):
     """Closes the database again at the end of the request."""
     g.db.close()
     # Prometheus metrics
-    REPONSE_COUNTER.inc()
+    RESPONSE_COUNTER.labels(str(response.status_code)).inc() # <---- Business value check
     t_elapsed_ms = (datetime.now() - request.start_time).total_seconds() * 1000
     REQUEST_DURATION_SUMMARY.observe(t_elapsed_ms)
     return response

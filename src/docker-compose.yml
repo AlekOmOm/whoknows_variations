@@ -25,6 +25,40 @@ services:
     image: grafana/grafana:10.2.4
     ports:
       - "3000:3000"
+    env_file:
+      - ../.env
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}
+    networks:
+      - app_network
+
+  alertmanager-1:
+    image: prom/alertmanager
+    container_name: alertmanager-1
+    volumes:
+      - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
+    ports:
+      - "9093:9093"
+    env_file:
+      - ../.env
+    environment:
+      - PAGERDUTY_SERVICE_KEY=${PAGERDUTY_SERVICE_KEY}
+      - PAGERDUTY_URL=${PAGERDUTY_URL}
+    networks:
+      - app_network
+
+  alertmanager-2:
+    image: prom/alertmanager
+    container_name: alertmanager-2
+    volumes:
+      - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
+    ports:
+      - "9094:9093"
+    env_file:
+      - ../.env
+    environment:
+      - PAGERDUTY_SERVICE_KEY=${PAGERDUTY_SERVICE_KEY}
+      - PAGERDUTY_URL=${PAGERDUTY_URL}
     networks:
       - app_network
 

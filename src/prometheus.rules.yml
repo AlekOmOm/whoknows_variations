@@ -1,0 +1,18 @@
+groups:
+- name: whoknows-app
+  rules:
+  - alert: AppDown
+    expr: up{job="whoknows-app"} == 0
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: 'whoknows-app instance {{ $labels.instance }} down'
+  - alert: HTTP500
+    expr: rate(whoknows_http_responses_total{code="500"}[1m]) > 0
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: "HTTP 500 responses detected"
+      description: "Application returned at least one 500 error in the last minute."
