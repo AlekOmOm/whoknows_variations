@@ -1,5 +1,12 @@
 # Alertmanager & PagerDuty Integration Report
 
+## 0. Prerequisites
+
+.env file with (for PagerDuty integration)
+- PAGERDUTY_SERVICE_KEY
+- PAGERDUTY_URL
+- GRAFANA_ADMIN_PASSWORD (or default to admin/admin)
+
 ## 1. Overview
 end-to-end setup 
 - enables **app (whoknows)** to trigger **PagerDuty** incidents 

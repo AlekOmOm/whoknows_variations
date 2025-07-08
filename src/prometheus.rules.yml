@@ -9,8 +9,8 @@ groups:
     annotations:
       summary: 'whoknows-app instance {{ $labels.instance }} down'
   - alert: HTTP500
-    expr: rate(whoknows_http_responses_total{code="500"}[10s]) > 0
-    for: 10s
+    expr: rate(whoknows_http_responses_total{code="500"}[10s]) > 0 # condition to check for 500 errors
+    for: 10s # time period to check for 500 errors
     labels:
       severity: critical
     annotations:

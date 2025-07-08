@@ -4,7 +4,7 @@ global:
 
   # Attach these extra labels to all timeseries collected by this Prometheus instance.
   external_labels:
-    monitor: 'codelab-monitor'
+    monitor: 'whoknows-monitor'
 
 rule_files:
   - 'prometheus.rules.yml'
